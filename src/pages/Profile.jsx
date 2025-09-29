@@ -3,12 +3,7 @@ import { getMyProfile, updateMyProfile } from "../api/profileApi";
 
 const Profile = () => {
   const [profile, setProfile] = useState(null);
-  const [form, setForm] = useState({
-    name: "",
-    email: "",
-    phone: "",
-    bio: "",
-  });
+  const [form, setForm] = useState({});
   const [message, setMessage] = useState("");
   const token = localStorage.getItem("token");
 
@@ -33,53 +28,69 @@ const Profile = () => {
     e.preventDefault();
     try {
       const res = await updateMyProfile(token, form);
-      setMessage("Profile updated successfully");
+      setMessage("✅ Profile updated successfully!");
       setProfile(res.data.profile);
     } catch (err) {
-      setMessage("Failed to update profile");
+      setMessage("❌ Failed to update profile");
       console.error(err);
     }
   };
 
-  if (!profile) return <p>Loading profile...</p>;
+  if (!profile) return <p className="text-center mt-10">Loading profile...</p>;
 
   return (
-    <div style={{ padding: "20px", maxWidth: "500px", margin: "auto" }}>
-      <h2>My Profile</h2>
-      {message && <p>{message}</p>}
-      <form onSubmit={handleSubmit}>
-        <label>Name:</label>
-        <input
-          type="text"
-          name="name"
-          value={form.name || ""}
-          onChange={handleChange}
-        />
+    <div className="max-w-md mx-auto mt-10 bg-white shadow-lg rounded-xl p-6">
+      <h2 className="text-2xl font-bold text-center mb-4">My Profile</h2>
+      {message && <p className="text-center mb-4">{message}</p>}
 
-        <label>Email:</label>
-        <input
-          type="email"
-          name="email"
-          value={form.email || ""}
-          onChange={handleChange}
-        />
+      <form onSubmit={handleSubmit} className="space-y-4">
+        <div>
+          <label className="block text-gray-700">Name</label>
+          <input
+            type="text"
+            name="name"
+            value={form.name || ""}
+            onChange={handleChange}
+            className="w-full border rounded-lg p-2"
+          />
+        </div>
 
-        <label>Phone:</label>
-        <input
-          type="text"
-          name="phone"
-          value={form.phone || ""}
-          onChange={handleChange}
-        />
+        <div>
+          <label className="block text-gray-700">Email</label>
+          <input
+            type="email"
+            name="email"
+            value={form.email || ""}
+            onChange={handleChange}
+            className="w-full border rounded-lg p-2"
+          />
+        </div>
 
-        <label>Bio:</label>
-        <textarea
-          name="bio"
-          value={form.bio || ""}
-          onChange={handleChange}
-        />
+        <div>
+          <label className="block text-gray-700">Phone</label>
+          <input
+            type="text"
+            name="phone"
+            value={form.phone || ""}
+            onChange={handleChange}
+            className="w-full border rounded-lg p-2"
+          />
+        </div>
 
-        <button type="submit" style={{ marginTop: "10px" }}>
+        <div>
+          <label className="block text-gray-700">Bio</label>
+          <textarea
+            name="bio"
+            value={form.bio || ""}
+            onChange={handleChange}
+            className="w-full border rounded-lg p-2"
+          ></textarea>
+        </div>
+
+        <button
+          type="submit"
+          className="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700"
+        >
           Update Profile
         </button>
       </form>
