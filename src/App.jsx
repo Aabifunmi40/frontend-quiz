@@ -10,10 +10,6 @@ import Quiz from "./pages/Quiz";
 import QuestionSelect from "./pages/QuestionSelect";
 import Results from "./pages/Results";
 import AdminDashboard from "./pages/AdminDashboard";
-
-// Import the two-step profile pages
-// import ProfileFormPage from "./pages/ProfileFormPage";
-// import ProfileUpdatePage from "./pages/ProfileUpdatePage";
 import Profile from "./pages/Profile";
 import ProtectedRoute from "./components/ProtectedRoute";
 
@@ -22,25 +18,67 @@ const App = () => {
     <Router>
       <Layout>
         <Routes>
-          {/* Homepage */}
+          {/* Public Pages */}
           <Route path="/" element={<Home />} />
-
-          {/* Auth Pages */}
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
 
           {/* Protected Pages */}
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/leaderboard" element={<Leaderboard />} />
-          <Route path="/select" element={<QuestionSelect />} />
-          <Route path="/quiz" element={<Quiz />} />
-          <Route path="/results" element={<Results />} />
+          <Route
+            path="/dashboard"
+            element={
+              <ProtectedRoute>
+                <Dashboard />
+              </ProtectedRoute>
+            }
+          />
 
-          {/* Profile Pages */}
-          <Route path="/profile" element={<Profile />} />
-          {/* <Route path="/update-profile" element={<ProfileUpdatePage />} /> */}
+          <Route
+            path="/leaderboard"
+            element={
+              <ProtectedRoute>
+                <Leaderboard />
+              </ProtectedRoute>
+            }
+          />
 
-          {/* Admin Dashboard */}
+          <Route
+            path="/select"
+            element={
+              <ProtectedRoute>
+                <QuestionSelect />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
+            path="/quiz"
+            element={
+              <ProtectedRoute>
+                <Quiz />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
+            path="/results"
+            element={
+              <ProtectedRoute>
+                <Results />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
+            path="/profile"
+            element={
+              <ProtectedRoute>
+                <Profile />
+              </ProtectedRoute>
+            }
+          />
+
+          {/* Admin-Only Route */}
           <Route
             path="/admin/dashboard"
             element={

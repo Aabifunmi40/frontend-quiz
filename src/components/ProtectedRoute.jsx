@@ -2,14 +2,18 @@
 import { Navigate } from "react-router-dom";
 
 const ProtectedRoute = ({ children, role }) => {
-  const user = JSON.parse(localStorage.getItem("user")); // from login response
+  const storedUser = localStorage.getItem("user");
 
-  if (!user) {
-    return <Navigate to="/login" />; // not logged in
+  // If no user is found in localStorage
+  if (!storedUser) {
+    return <Navigate to="/login" />;
   }
 
+  const user = JSON.parse(storedUser);
+
+  // If a role is specified (e.g., "admin") but doesn't match
   if (role && user.role !== role) {
-    return <Navigate to="/" />; // not the right role
+    return <Navigate to="/dashboard" />;
   }
 
   return children;
