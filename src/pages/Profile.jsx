@@ -5,6 +5,8 @@ const Profile = () => {
   const [profile, setProfile] = useState(null);
   const [form, setForm] = useState({});
   const [message, setMessage] = useState("");
+  const [loading, setLoading] = useState(true);
+
   const token = localStorage.getItem("token");
 
   useEffect(() => {
@@ -14,11 +16,15 @@ const Profile = () => {
         setProfile(res.data);
         setForm(res.data);
       } catch (err) {
-        console.error(err);
+        console.error("Failed to load profile:", err);
+        setProfile(null);
+      } finally {
+        setLoading(false);
       }
     };
+
     fetchProfile();
-  }, []);
+  }, [token]);
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -31,12 +37,22 @@ const Profile = () => {
       setMessage("✅ Profile updated successfully!");
       setProfile(res.data.profile);
     } catch (err) {
+      console.error("Update failed:", err);
       setMessage("❌ Failed to update profile");
-      console.error(err);
     }
   };
 
-  if (!profile) return <p className="text-center mt-10">Loading profile...</p>;
+  if (loading) {
+    return <p className="text-center mt-10">Loading profile...</p>;
+  }
+
+  if (!profile) {
+    return (
+      <p className="text-center mt-10 text-red-500">
+        Profile not found or failed to load.
+      </p>
+    );
+  }
 
   return (
     <div className="max-w-md mx-auto mt-10 bg-white shadow-lg rounded-xl p-6">
@@ -63,6 +79,7 @@ const Profile = () => {
             value={form.email || ""}
             onChange={handleChange}
             className="w-full border rounded-lg p-2"
+            disabled // usually email shouldn't be editable
           />
         </div>
 
