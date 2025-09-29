@@ -20,7 +20,7 @@ export default function Dashboard() {
     {
       title: "Profile",
       desc: "View and manage your account details.",
-      action: () => navigate("/profile"),
+      action: () => navigate("/profile-form"), // navigate to the first profile page
       color: "bg-yellow-500",
     },
   ];
@@ -33,12 +33,10 @@ export default function Dashboard() {
         transition={{ duration: 0.5 }}
         className="max-w-5xl w-full"
       >
-        {/* Title */}
         <h1 className="text-3xl font-bold text-gray-800 text-center mb-10">
           Welcome to Your Quiz Dashboard 🎯
         </h1>
 
-        {/* Cards */}
         <div className="grid gap-6 md:grid-cols-3">
           {cards.map((card, idx) => (
             <motion.div

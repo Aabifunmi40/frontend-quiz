@@ -10,7 +10,11 @@ import Quiz from "./pages/Quiz";
 import QuestionSelect from "./pages/QuestionSelect";
 import Results from "./pages/Results";
 import AdminDashboard from "./pages/AdminDashboard";
-import UserProfile from "./pages/UserProfile"; // Import the UserProfile component
+
+// Import the two-step profile pages
+// import ProfileFormPage from "./pages/ProfileFormPage";
+// import ProfileUpdatePage from "./pages/ProfileUpdatePage";
+import Profile from "./pages/Profile";
 import ProtectedRoute from "./components/ProtectedRoute";
 
 const App = () => {
@@ -31,9 +35,12 @@ const App = () => {
           <Route path="/select" element={<QuestionSelect />} />
           <Route path="/quiz" element={<Quiz />} />
           <Route path="/results" element={<Results />} />
-          <Route path="/profile" element={<UserProfile />} /> {/* Added UserProfile route */}
 
-          {/* Admin Dashboard (protected) */}
+          {/* Profile Pages */}
+          <Route path="/profile" element={<Profile />} />
+          {/* <Route path="/update-profile" element={<ProfileUpdatePage />} /> */}
+
+          {/* Admin Dashboard */}
           <Route
             path="/admin/dashboard"
             element={

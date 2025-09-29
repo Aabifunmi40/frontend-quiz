@@ -46,6 +46,8 @@ export default function Header() {
                 <Link to="/select" className="hover:text-yellow-400">
                   Select Quiz
                 </Link>
+                
+                <Link to="/profile">My Profile</Link>
 
                 {/* Admin Dashboard link */}
                 {user.role === "admin" && (
